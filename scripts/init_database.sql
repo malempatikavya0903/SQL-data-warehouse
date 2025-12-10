@@ -11,15 +11,19 @@ All data in the database will be permanently deleted. Proceed with caution and e
 /*
 
 
+
+-------------------------------------------------
+-- 1. Switch to the master database  
+--    (All CREATE DATABASE commands must run here)
+-------------------------------------------------
 USE master;
 GO
 
 
-
--- 2. Drop the database if it already exists--  
-
-
-
+-------------------------------------------------
+-- 2. Drop the database if it already exists  
+--    (Prevents errors during repeated deployments)
+-------------------------------------------------
 IF EXISTS (SELECT name FROM sys.databases WHERE name = 'DataWarehouse')
 BEGIN
     DROP DATABASE DataWarehouse;
@@ -27,27 +31,28 @@ END
 GO
 
 
-
--- 2. Create the DataWarehouse database--
-
+-------------------------------------------------
+-- 3. Create the DataWarehouse database
+-------------------------------------------------
 CREATE DATABASE DataWarehouse;
 GO
 
 
--- 3. Switch context to the new DataWarehouse DB--
-
+-------------------------------------------------
+-- 4. Switch context to the new DataWarehouse DB
+-------------------------------------------------
 USE DataWarehouse;
 GO
 
 
+-------------------------------------------------
 -- 5. Create schemas  
 --    Bronze: Raw data  
 --    Silver: Cleaned/Conformed data  
 --    Gold:   Business-ready curated data
+-------------------------------------------------
 
-
--- Bronze schema - stores raw ingested data--
-
+-- Bronze schema - stores raw ingested data
 CREATE SCHEMA bronze;
 GO
 
